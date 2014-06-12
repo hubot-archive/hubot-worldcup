@@ -2,10 +2,16 @@
 
 World Cup commands for hubot!
 
-# Updating
+# Contributing
 
-In order to update the package, follow these steps:
+* Fork this repo
+* Submit your code to your fork
+* Create a pull request from your fork
 
-* Add your code
-* Bump the version in `package.json`
-* run `npm publish`
+# API
+
+The API behind this bot is also open source and can be found at:
+
+https://github.com/travisvalentine/worldcup-bot
+
+Feel free to contribute there as well, following the same steps above in `Contributing`
