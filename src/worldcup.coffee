@@ -62,3 +62,14 @@ module.exports = (robot) ->
 
   robot.respond /(who).*(win).*(world).*(cup)/i, (msg) ->
     msg.send "BRASIL!!!"
+
+  robot.respond /(worldcup|wc) ( yellow|red) (.*)/i, (msg) ->
+    color = msg.match[2]
+    person = msg.match[3]
+
+    if color == "yellow"
+      msg.send "http://www.transpoplanner.com/wp-content/uploads/2014/01/b809cfee40_yellow-card1.jpg"
+      msg.send "#{person}: one more and you're out"
+    else if color == "red"
+      msg.send "http://img.thesun.co.uk/aidemitlum/archive/01689/red_main_1689473a.jpg"
+      msg.send "#{person}: you're out"
