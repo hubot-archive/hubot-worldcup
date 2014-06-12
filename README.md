@@ -2,10 +2,8 @@
 
 World Cup commands for hubot!
 
-# Updating
+# Contributing
 
-In order to update the package, follow these steps:
-
-* Add your code
-* Bump the version in `package.json`
-* run `npm publish`
+* Fork this repo
+* Submit your code to your fork
+* Create a pull request from your fork
