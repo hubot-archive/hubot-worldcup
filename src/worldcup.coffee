@@ -74,3 +74,17 @@ module.exports = (robot) ->
     else if color == "red"
       msg.send "http://img.thesun.co.uk/aidemitlum/archive/01689/red_main_1689473a.jpg"
       msg.send "#{person}: you're out"
+
+  robot.respond /(worldcup|wc)( recap)/i, (msg) ->
+    msg.http("http://worldcup2014bot.herokuapp.com/scores/recap")
+      .get() (err, res, body) ->
+        scores = JSON.parse(body).scores
+        if scores.length > 0
+          scores_array = scores.map (score) ->
+            score.score_summary
+
+          formatted_scores = scores_array.join("\n")
+
+          msg.send formatted_scores
+        else
+          msg.send "There were no matches yesterday :("
