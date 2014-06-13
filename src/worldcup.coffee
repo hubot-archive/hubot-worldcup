@@ -102,7 +102,7 @@ module.exports = (robot) ->
           msg.send "There is no game right now :("
 
   robot.respond /(worldcup|wc)( group)( .*)/i, (msg) ->
-    group_letter = msg.match[3].toUpperCase()
+    group_letter = msg.match[3].trim().toUpperCase()
 
     msg.http("http://worldcup2014bot.herokuapp.com/groups/#{group_letter}")
       .get() (err, res, body) ->
