@@ -7,6 +7,7 @@
 #   hubot wc teams                  - Returns a list of teams in the World Cup
 #   hubot wc score                  - Returns score of current game
 #   hubot wc recap                  - Returns a score summary from the previous day's matches
+#   hubot wc group <letter>         - Returns a group's standings
 #   hubot wc more <team acronym>    - Returns a link to FIFA to see news, rosters, etc. for a given team
 #   hubot wc <red or yellow> <name> - Give someone a red/yellow card
 
@@ -92,10 +93,27 @@ module.exports = (robot) ->
           msg.send "There were no matches yesterday :("
 
   robot.respond /(worldcup|wc)( score)/i, (msg) ->
-    msg.http("http://worldcup2014bot.herokuapp.com/scores/now")
+    msg.http("http://localhost:3000/scores/now")
       .get() (err, res, body) ->
         score = JSON.parse(body).score
         if score
           msg.send score.score_summary
         else
           msg.send "There is no game right now :("
+
+  robot.respond /(worldcup|wc)( group)( .*)/i, (msg) ->
+    group_letter = msg.match[3]
+
+    msg.http("http://localhost:3000/groups/#{group_letter}")
+      .get() (err, res, body) ->
+        standings = JSON.parse(body).groups
+
+        if standings.length > 0
+          scores_array = standings.map (gs) ->
+            "#{gs.team.name} - #{gs.games_played} #{gs.wins} #{gs.draws} #{gs.losses} #{gs.goals_for} #{gs.goals_against} #{gs.points}"
+
+          formatted_standings = scores_array.join("\n")
+
+          msg.send formatted_standings
+        else
+          msg.send "We couldn't find standings for that group. Please make sure the letter is valid and try again."
