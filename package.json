@@ -1,7 +1,7 @@
 {
   "name": "hubot-worldcup",
   "description": "A hubot script for the World Cup",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Travis Valentine <tvalent2@gmualumni.org>",
   "license": "MIT",
 
@@ -13,11 +13,11 @@
 
   "repository": {
     "type": "git",
-    "url": "git://github.com/travisvalentine/hubot-worldcup.git"
+    "url": "git://github.com/hubot-scripts/hubot-worldcup.git"
   },
 
   "bugs": {
-    "url": "https://github.com/travisvalentine/hubot-worldcup/issues"
+    "url": "https://github.com/hubot-scripts/hubot-worldcup/issues"
   },
 
   "dependencies": {

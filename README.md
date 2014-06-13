@@ -2,6 +2,26 @@
 
 World Cup commands for hubot!
 
+## Installation
+
+Add **hubot-worldcup** to your `package.json` file:
+
+```json
+"dependencies": {
+  "hubot": ">= 2.5.1",
+  "hubot-scripts": ">= 2.4.2",
+  "hubot-worldcup": ">= 0.0.0"
+}
+```
+
+Add **hubot-worldcup** to your `external-scripts.json`:
+
+```json
+["hubot-worldcup"]
+```
+
+Run `npm install hubot-worldcup`
+
 # Contributing
 
 * Fork this repo
