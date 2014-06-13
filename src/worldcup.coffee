@@ -89,3 +89,12 @@ module.exports = (robot) ->
           msg.send formatted_scores
         else
           msg.send "There were no matches yesterday :("
+
+  robot.respond /(worldcup|wc)( score)/i, (msg) ->
+    msg.http("http://worldcup2014bot.herokuapp.com/scores/now")
+      .get() (err, res, body) ->
+        score = JSON.parse(body).score
+        if score
+          msg.send score.score_summary
+        else
+          msg.send "There is no game right now :("
