@@ -102,7 +102,7 @@ module.exports = (robot) ->
           msg.send "There is no game right now :("
 
   robot.respond /(worldcup|wc)( group)( .*)/i, (msg) ->
-    group_letter = msg.match[3]
+    group_letter = msg.match[3].toUpperCase()
 
     msg.http("http://worldcup2014bot.herokuapp.com/groups/#{group_letter}")
       .get() (err, res, body) ->
@@ -110,7 +110,9 @@ module.exports = (robot) ->
 
         if standings.length > 0
           scores_array = standings.map (gs) ->
-            "#{gs.team.name} - #{gs.games_played} #{gs.wins} #{gs.draws} #{gs.losses} #{gs.goals_for} #{gs.goals_against} #{gs.points}"
+            "#{gs.team.name} - #{gs.games_played}GP #{gs.wins}W #{gs.draws}D #{gs.losses}L #{gs.goals_for}GF #{gs.goals_against}GA #{gs.points}PTS"
+
+          scores_array.unshift("Group #{group_letter} standings")
 
           formatted_standings = scores_array.join("\n")
 
