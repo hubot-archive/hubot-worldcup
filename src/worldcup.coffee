@@ -63,7 +63,7 @@ module.exports = (robot) ->
   robot.respond /(who).*(win).*(world).*(cup)/i, (msg) ->
     msg.send "BRASIL!!!"
 
-  robot.respond /(worldcup|wc) ( yellow|red) (.*)/i, (msg) ->
+  robot.respond /(worldcup|wc).*( yellow|red)( .*)/i, (msg) ->
     color = msg.match[2]
     person = msg.match[3]
 
