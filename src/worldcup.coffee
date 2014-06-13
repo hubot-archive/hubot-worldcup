@@ -12,9 +12,14 @@
 #   hubot wc <red or yellow> <name> - Give someone a red/yellow card
 
 module.exports = (robot) ->
-  robot.respond /(worldcup|wc)( today)( [a-z]+)?/i, (msg) ->
-    timezone = msg.match[3]
-    url = "http://worldcup2014bot.herokuapp.com/matches?timezone=" + timezone
+  robot.respond /(worldcup|wc)( today)( [\w \(\&\)]+)?/i, (msg) ->
+    timezone = if msg.match[3]
+      msg.match[3].trim()
+    else
+      ""
+
+    url = "http://worldcup2014bot.herokuapp.com/matches?timezone=#{timezone}"
+
     msg.http(url)
       .get() (err, res, body) ->
         matches = JSON.parse(body).matches
