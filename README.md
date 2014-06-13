@@ -22,7 +22,7 @@ Add **hubot-worldcup** to your `external-scripts.json`:
 
 Run `npm install hubot-worldcup`
 
-# Commands
+## Commands
 
 ```
 hubot wc today                  - Returns a list of World Cup matches today
@@ -35,13 +35,13 @@ hubot wc more <team acronym>    - Returns a link to FIFA to see news, rosters, e
 hubot wc <red or yellow> <name> - Give someone a red/yellow card
 ```
 
-# Contributing
+## Contributing
 
 * Fork this repo
 * Submit your code to your fork
 * Create a pull request from your fork
 
-# API
+## API
 
 The API behind this bot is also open source and can be found at:
 
