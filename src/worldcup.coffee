@@ -93,7 +93,7 @@ module.exports = (robot) ->
           msg.send "There were no matches yesterday :("
 
   robot.respond /(worldcup|wc)( score)/i, (msg) ->
-    msg.http("http://localhost:3000/scores/now")
+    msg.http("http://worldcup2014bot.herokuapp.com/scores/now")
       .get() (err, res, body) ->
         score = JSON.parse(body).score
         if score
@@ -104,7 +104,7 @@ module.exports = (robot) ->
   robot.respond /(worldcup|wc)( group)( .*)/i, (msg) ->
     group_letter = msg.match[3]
 
-    msg.http("http://localhost:3000/groups/#{group_letter}")
+    msg.http("http://worldcup2014bot.herokuapp.com/groups/#{group_letter}")
       .get() (err, res, body) ->
         standings = JSON.parse(body).groups
 
