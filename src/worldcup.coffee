@@ -12,9 +12,9 @@
 #   hubot wc <red or yellow> <name> - Give someone a red/yellow card
 
 module.exports = (robot) ->
-  robot.respond /(worldcup|wc)( today)( [\w \(\&\)]+)?/i, (msg) ->
+  robot.respond /(worldcup|wc)( today)( [\w \(\&\)\/]+)?/i, (msg) ->
     timezone = if msg.match[3]
-      msg.match[3].trim()
+      escape msg.match[3].trim()
     else
       ""
 
@@ -33,9 +33,9 @@ module.exports = (robot) ->
         else
           msg.send "There are no matches today"
 
-  robot.respond /(worldcup|wc)( tomorrow)( [\w \(\&\)]+)?/i, (msg) ->
+  robot.respond /(worldcup|wc)( tomorrow)( [\w \(\&\)\/]+)?/i, (msg) ->
     timezone = if msg.match[3]
-      msg.match[3].trim()
+      escape msg.match[3].trim()
     else
       ""
 
@@ -90,9 +90,9 @@ module.exports = (robot) ->
       msg.send "http://img.thesun.co.uk/aidemitlum/archive/01689/red_main_1689473a.jpg"
       msg.send "#{person}: you're out"
 
-  robot.respond /(worldcup|wc)( recap)( [\w \(\&\)]+)?/i, (msg) ->
+  robot.respond /(worldcup|wc)( recap)( [\w \(\&\)\/]+)?/i, (msg) ->
     timezone = if msg.match[3]
-      msg.match[3].trim()
+      escape msg.match[3].trim()
     else
       ""
 
@@ -109,9 +109,9 @@ module.exports = (robot) ->
         else
           msg.send "There were no matches yesterday :("
 
-  robot.respond /(worldcup|wc)( score)( [\w \(\&\)]+)?/i, (msg) ->
+  robot.respond /(worldcup|wc)( score)( [\w \(\&\)\/]+)?/i, (msg) ->
     timezone = if msg.match[3]
-      msg.match[3].trim()
+      escape msg.match[3].trim()
     else
       ""
 
