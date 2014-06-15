@@ -33,8 +33,13 @@ module.exports = (robot) ->
         else
           msg.send "There are no matches today"
 
-  robot.respond /(worldcup|wc)( tomorrow)/i, (msg) ->
-    msg.http("http://worldcup2014bot.herokuapp.com/matches/tomorrow")
+  robot.respond /(worldcup|wc)( tomorrow)( [\w \(\&\)]+)?/i, (msg) ->
+    timezone = if msg.match[3]
+      msg.match[3].trim()
+    else
+      ""
+
+    msg.http("http://worldcup2014bot.herokuapp.com/matches/tomorrow?timezone=#{timezone}")
       .get() (err, res, body) ->
         matches = JSON.parse(body).matches
         if matches.length > 0
@@ -85,8 +90,13 @@ module.exports = (robot) ->
       msg.send "http://img.thesun.co.uk/aidemitlum/archive/01689/red_main_1689473a.jpg"
       msg.send "#{person}: you're out"
 
-  robot.respond /(worldcup|wc)( recap)/i, (msg) ->
-    msg.http("http://worldcup2014bot.herokuapp.com/scores/recap")
+  robot.respond /(worldcup|wc)( recap)( [\w \(\&\)]+)?/i, (msg) ->
+    timezone = if msg.match[3]
+      msg.match[3].trim()
+    else
+      ""
+
+    msg.http("http://worldcup2014bot.herokuapp.com/scores/recap?timezone=#{timezone}")
       .get() (err, res, body) ->
         scores = JSON.parse(body).scores
         if scores.length > 0
@@ -99,8 +109,13 @@ module.exports = (robot) ->
         else
           msg.send "There were no matches yesterday :("
 
-  robot.respond /(worldcup|wc)( score)/i, (msg) ->
-    msg.http("http://worldcup2014bot.herokuapp.com/scores/now")
+  robot.respond /(worldcup|wc)( score)( [\w \(\&\)]+)?/i, (msg) ->
+    timezone = if msg.match[3]
+      msg.match[3].trim()
+    else
+      ""
+
+    msg.http("http://worldcup2014bot.herokuapp.com/scores/now?timezone=#{timezone}")
       .get() (err, res, body) ->
         score = JSON.parse(body).score
         if score
