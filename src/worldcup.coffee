@@ -2,11 +2,11 @@
 #   A way to get basic info and updates on the 2014 World Cup
 #
 # Commands:
-#   hubot wc today                  - Returns a list of World Cup matches today
-#   hubot wc tomorrow               - Returns a list of World Cup matches tomorrow
+#   hubot wc today  <timezone>      - Returns a list of World Cup matches today for a given timezone
+#   hubot wc tomorrow <timezone>    - Returns a list of World Cup matches tomorrow for a given timezone
 #   hubot wc teams                  - Returns a list of teams in the World Cup
-#   hubot wc score                  - Returns score of current game
-#   hubot wc recap                  - Returns a score summary from the previous day's matches
+#   hubot wc score <timezone>       - Returns the score of the current game in given timezone
+#   hubot wc recap <timezone>       - Returns a score summary from the previous day's matches in given timezone
 #   hubot wc group <letter>         - Returns a group's standings
 #   hubot wc more <team acronym>    - Returns a link to FIFA to see news, rosters, etc. for a given team
 #   hubot wc <red or yellow> <name> - Give someone a red/yellow card
