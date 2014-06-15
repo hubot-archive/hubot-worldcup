@@ -141,3 +141,15 @@ module.exports = (robot) ->
           msg.send formatted_standings
         else
           msg.send "We couldn't find standings for that group. Please make sure the letter is valid and try again."
+
+  robot.router.post '/worldcup/goal/:room', (req, res) ->
+     room = req.params.room
+     json = JSON.parse(req.body.message)
+     message = "#{goalMessage()}! #{json.player.name} #{json.minute}': #{json.home_team} (#{json.home_goals}) vs #{json.away_team} (#{json.away_goals})"
+     robot.messageRoom room, message
+     res.end()
+
+  goalMessage = ->
+    array = [5..15]
+    os = Array(array[Math.floor(Math.random() * array.length)]).join('O')
+    "G#{os}L"
