@@ -142,6 +142,26 @@ module.exports = (robot) ->
         else
           msg.send "We couldn't find standings for that group. Please make sure the letter is valid and try again."
 
+  robot.respond /(worldcup|wc)( odds)( [\w \(\&\)\/]+)?/i, (msg) ->
+    timezone = if msg.match[3]
+      escape msg.match[3].trim()
+    else
+      ""
+
+    msg.http("http://worldcup2014bot.herokuapp.com/odds?timezone=#{timezone}")
+      .get() (err, res, body) ->
+        odds_array = JSON.parse(body).odds
+
+        if odds_array.length > 0
+          odds_breakdown = odds_array.map (match_odds) ->
+            "#{match_odds.home_team} (#{match_odds.home_team_wins}) #{match_odds.away_team} (#{match_odds.away_team_wins}) Draw (#{match_odds.draw})"
+
+          formatted_odds = odds_breakdown.join("\n")
+
+          msg.send formatted_odds
+        else
+          msg.send "There are no matches today, you gambling machine."
+
   robot.router.post '/worldcup/goal/:room', (req, res) ->
      room = req.params.room
      json = JSON.parse(req.body.message)
