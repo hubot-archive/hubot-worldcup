@@ -2,7 +2,8 @@
 #   A way to get basic info and updates on the 2014 World Cup
 #
 # Commands:
-#   hubot wc gifs <timezone>        - Returns gifs related to matches from the day in a given timezone
+#   hubot wc gifs <timezone>        - Returns gifs related to matches from today in a given timezone
+#   hubot wc gifs recap <timezone>  - Returns gifs related to matches from yesterday in a given timezone
 #   hubot wc group <letter>         - Returns a group's standings
 #   hubot wc more <team acronym>    - Returns a link to FIFA to see news, rosters, etc. for a given team
 #   hubot wc odds <timezone>        - Returns the odds for the matches yet to be played in given timezone
