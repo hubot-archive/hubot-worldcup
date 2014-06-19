@@ -26,14 +26,15 @@ Run `npm install hubot-worldcup`
 
 ```
 # Commands:
+hubot wc gifs <timezone>        - Returns gifs related to matches from the day in a given timezone
+hubot wc group <letter>         - Returns a group's standings
+hubot wc more <team acronym>    - Returns a link to FIFA to see news, rosters, etc. for a given team
+hubot wc odds <timezone>        - Returns the odds for the matches yet to be played in given timezone
+hubot wc recap <timezone>       - Returns a score summary from the previous day's matches in given timezone
+hubot wc score <timezone>       - Returns the score of the current game in given timezone
 hubot wc today  <timezone>      - Returns a list of World Cup matches today for a given timezone
 hubot wc tomorrow <timezone>    - Returns a list of World Cup matches tomorrow for a given timezone
 hubot wc teams                  - Returns a list of teams in the World Cup
-hubot wc odds <timezone>        - Returns the odds for the matches yet to be played in given timezone
-hubot wc score <timezone>       - Returns the score of the current game in given timezone
-hubot wc recap <timezone>       - Returns a score summary from the previous day's matches in given timezone
-hubot wc group <letter>         - Returns a group's standings
-hubot wc more <team acronym>    - Returns a link to FIFA to see news, rosters, etc. for a given team
 hubot wc <red or yellow> <name> - Give someone a red/yellow card
 ```
 
