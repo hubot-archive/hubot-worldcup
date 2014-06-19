@@ -175,10 +175,14 @@ module.exports = (robot) ->
         gifs_array = JSON.parse(body).gifs
 
         if gifs_array.length > 0
-          gifs_array.map (link) ->
-            msg.send link
+          gifs_array.map (gif_hash) ->
+            if gif_hash["links"].length > 0
+              msg.send gif_hash["summary"]
+
+              for link in gif_hash["links"]
+                msg.send link
         else
-          msg.send "There are no gifs for today :("
+          msg.send "There are no gifs for today's matches :("
 
   robot.router.post '/worldcup/goal/:room', (req, res) ->
      room = req.params.room
