@@ -164,13 +164,18 @@ module.exports = (robot) ->
         else
           msg.send "There are no matches today, you gambling machine."
 
-  robot.respond /(worldcup|wc)( gifs)( [\w \(\&\)\/]+)?/i, (msg) ->
-    timezone = if msg.match[3]
-      escape msg.match[3].trim()
+  robot.respond /(worldcup|wc)( gifs)( recap)?( [\w \(\&\)\/]+)?/i, (msg) ->
+    timezone = if msg.match[4]
+      escape msg.match[4].trim()
     else
       ""
 
-    msg.http("http://worldcup2014bot.herokuapp.com/gifs?timezone=#{timezone}")
+    path = if msg.match[3]
+      "http://worldcup2014bot.herokuapp.com/gifs/recap?timezone=#{timezone}"
+    else
+      "http://worldcup2014bot.herokuapp.com/gifs?timezone=#{timezone}"
+
+    msg.http(path)
       .get() (err, res, body) ->
         gifs_array = JSON.parse(body).gifs
 
