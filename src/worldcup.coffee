@@ -118,13 +118,14 @@ module.exports = (robot) ->
     else
       ""
 
-    msg.http("http://worldcup2014bot.herokuapp.com/scores/now?timezone=#{timezone}")
+    msg.http("http://localhost:4002/scores/now?timezone=#{timezone}")
       .get() (err, res, body) ->
-        score = JSON.parse(body).score
-        if score
-          msg.send score.score_summary
+        scores = JSON.parse(body).scores
+        if scores.length > 0
+          for score in scores
+            msg.send score.score_summary
         else
-          msg.send "There is no game right now :("
+          msg.send "There are no games right now :("
 
   robot.respond /(worldcup|wc)( group)( .*)/i, (msg) ->
     group_letter = msg.match[3].trim().toUpperCase()

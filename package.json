@@ -1,7 +1,7 @@
 {
   "name": "hubot-worldcup",
   "description": "A hubot script for the World Cup",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "author": "Travis Valentine <tvalent2@gmualumni.org>",
   "license": "MIT",
 
