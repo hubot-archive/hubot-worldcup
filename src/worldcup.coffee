@@ -118,7 +118,7 @@ module.exports = (robot) ->
     else
       ""
 
-    msg.http("http://localhost:4002/scores/now?timezone=#{timezone}")
+    msg.http("http://worldcup2014bot.herokuapp.com/scores/now?timezone=#{timezone}")
       .get() (err, res, body) ->
         scores = JSON.parse(body).scores
         if scores.length > 0
