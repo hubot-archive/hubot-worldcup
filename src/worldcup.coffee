@@ -2,6 +2,8 @@
 #   A way to get basic info and updates on the 2014 World Cup
 #
 # Commands:
+#   hubot wc cards                  - Returns list of suspended players due to cards
+#   hubot wc cards <team acronym>   - Returns list of cards for a given team
 #   hubot wc gifs <timezone>        - Returns gifs related to matches from today in a given timezone
 #   hubot wc gifs recap <timezone>  - Returns gifs related to matches from yesterday in a given timezone
 #   hubot wc group <letter>         - Returns a group's standings
@@ -190,6 +192,43 @@ module.exports = (robot) ->
                 msg.send link
         else
           msg.send "There are no gifs for today's matches :("
+
+  # robot.respond /(worldcup|wc)( cards)/i, (msg) ->
+  #   path = "http://worldcup2014bot.herokuapp.com/cards"
+
+  #   msg.http(path)
+  #     .get() (err, res, body) ->
+  #       cards = JSON.parse(body).cards
+
+  #       if cards.length > 0
+  #         cards.map (card) ->
+  #           msg.send "#{card.player} (#{card.team}) - #{card.suspension} for #{card.offense}"
+  #       else
+  #         msg.send "There are no suspensions from cards :("
+
+  robot.respond /(worldcup|wc)( cards)( .*)?/i, (msg) ->
+    team_name = msg.match[3]
+
+    if team_name?
+      path = "http://worldcup2014bot.herokuapp.com/cards/team?name=#{team_name.trim()}"
+    else
+      path = "http://worldcup2014bot.herokuapp.com/cards"
+
+    msg.http(path)
+      .get() (err, res, body) ->
+        cards = JSON.parse(body).cards
+
+        if cards.length > 0
+          cards.map (card) ->
+            if team_name?
+              msg.send "#{card.team} - Yellow: #{card.yellows}, Red: #{card.reds}"
+            else
+              msg.send "#{card.player} (#{card.team}) - #{card.suspension} for #{card.offense}"
+        else
+          if team_name?
+            msg.send "There are no cards for #{team_name.trim()}. Make sure that's a valid name or acronym."
+          else
+            msg.send "There are no suspensions from cards :("
 
   robot.router.post '/worldcup/goal/:room', (req, res) ->
      room = req.params.room
