@@ -224,11 +224,11 @@ module.exports = (robot) ->
 
             formatSimpleArray(msg, scores, "score_summary", goalMessage())
       , 3000
-      msg.send "Live score is on"
+      msg.send "'Live' score is on"
     else if status == "off" && liveScoreInterval
       clearInterval(liveScoreInterval)
       liveScoreInterval = null
-      msg.send "Live score is off"
+      msg.send "'Live' score is off"
 
   robot.router.post '/worldcup/goal/:room', (req, res) ->
      room = req.params.room
