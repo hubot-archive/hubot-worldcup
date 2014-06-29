@@ -2,7 +2,7 @@
 #   A way to get basic info and updates on the 2014 World Cup
 #
 # Configuration:
-#   WC_LIVE_PERMITTED_ROOMS - Comma delimited chat room IDs
+#   HUBOT_WC_LIVE_PERMITTED_ROOMS   - Comma delimited chat room IDs
 #
 # Commands:
 #   hubot wc cards                  - Returns list of suspended players due to cards
@@ -211,9 +211,7 @@ module.exports = (robot) ->
 
   robot.respond /(worldcup|wc)( live)( .*)/i, (msg) ->
     current_room = '' + msg.message.user.room
-    permitted_rooms = process.env.WC_LIVE_PERMITTED_ROOMS
-    msg.send "ROOM: #{current_room}"
-    msg.send "PERMITTED: #{permitted_rooms}"
+    permitted_rooms = process.env.HUBOT_WC_LIVE_PERMITTED_ROOMS.split(",")
     return if permitted_rooms and current_room not in permitted_rooms
 
     status = msg.match[3].trim()

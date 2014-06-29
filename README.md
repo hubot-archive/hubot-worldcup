@@ -22,6 +22,12 @@ Add **hubot-worldcup** to your `external-scripts.json`:
 
 Run `npm install hubot-worldcup`
 
+## Optional Configuration
+
+```
+HUBOT_WC_LIVE_PERMITTED_ROOMS
+```
+
 ## Commands
 
 ```
