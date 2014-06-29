@@ -17,6 +17,21 @@
 #   hubot wc <red or yellow> <name> - Give someone a red/yellow card
 
 module.exports = (robot) ->
+
+  formatSimpleArray = (msg, array, method, header_string, empty_message) ->
+    if array.length > 0
+      objects = array.map (obj) ->
+        obj[method]
+
+      if header_string?
+        objects.unshift(header_string)
+
+      formatted_object_string = objects.join("\n")
+
+      msg.send formatted_object_string
+    else
+      msg.send empty_message
+
   robot.respond /(worldcup|wc)( today)( [\w \(\&\)\/]+)?/i, (msg) ->
     timezone = if msg.match[3]
       escape msg.match[3].trim()
@@ -28,15 +43,8 @@ module.exports = (robot) ->
     msg.http(url)
       .get() (err, res, body) ->
         matches = JSON.parse(body).matches
-        if matches.length > 0
-          matches_array = matches.map (match) ->
-            match.short_description
 
-          formatted_matches = matches_array.join("\n")
-
-          msg.send formatted_matches
-        else
-          msg.send "There are no matches today"
+        formatSimpleArray(msg, matches, "short_description", null, "There are no matches today")
 
   robot.respond /(worldcup|wc)( tomorrow)( [\w \(\&\)\/]+)?/i, (msg) ->
     timezone = if msg.match[3]
@@ -47,32 +55,15 @@ module.exports = (robot) ->
     msg.http("http://worldcup2014bot.herokuapp.com/matches/tomorrow?timezone=#{timezone}")
       .get() (err, res, body) ->
         matches = JSON.parse(body).matches
-        if matches.length > 0
-          matches_array = matches.map (match) ->
-            match.short_description
 
-          formatted_matches = matches_array.join("\n")
-
-          msg.send formatted_matches
-        else
-          msg.send "There are no matches tomorrow :("
+        formatSimpleArray(msg, matches, "short_description", null, "There are no matches tomorrow :(")
 
   robot.respond /(worldcup|wc)( teams)/i, (msg) ->
     msg.http("http://worldcup2014bot.herokuapp.com/teams")
       .get() (err, res, body) ->
         teams = JSON.parse(body).teams
-        if teams.length > 0
-          team_names = teams.map (team) ->
-            team.combined_name
 
-          # add a quasi header to explain the output
-          team_names.unshift("Team Acronym - Team Name")
-
-          formatted_teams = team_names.join("\n")
-
-          msg.send formatted_teams
-        else
-          msg.send "We had trouble finding the teams"
+        formatSimpleArray(msg, teams, "combined_name", "Team Acronym - Team Name", "We had trouble finding the teams")
 
   robot.respond /(worldcup|wc)( more)( .*)/i, (msg) ->
     team_acronym = msg.match[3]
@@ -104,15 +95,8 @@ module.exports = (robot) ->
     msg.http("http://worldcup2014bot.herokuapp.com/scores/recap?timezone=#{timezone}")
       .get() (err, res, body) ->
         scores = JSON.parse(body).scores
-        if scores.length > 0
-          scores_array = scores.map (score) ->
-            score.score_summary
 
-          formatted_scores = scores_array.join("\n")
-
-          msg.send formatted_scores
-        else
-          msg.send "There were no matches yesterday :("
+        formatSimpleArray(msg, scores, "score_summary", null, "There were no matches yesterday :(")
 
   robot.respond /(worldcup|wc)( score)( [\w \(\&\)\/]+)?/i, (msg) ->
     timezone = if msg.match[3]
@@ -192,19 +176,6 @@ module.exports = (robot) ->
                 msg.send link
         else
           msg.send "There are no gifs for today's matches :("
-
-  # robot.respond /(worldcup|wc)( cards)/i, (msg) ->
-  #   path = "http://worldcup2014bot.herokuapp.com/cards"
-
-  #   msg.http(path)
-  #     .get() (err, res, body) ->
-  #       cards = JSON.parse(body).cards
-
-  #       if cards.length > 0
-  #         cards.map (card) ->
-  #           msg.send "#{card.player} (#{card.team}) - #{card.suspension} for #{card.offense}"
-  #       else
-  #         msg.send "There are no suspensions from cards :("
 
   robot.respond /(worldcup|wc)( cards)( .*)?/i, (msg) ->
     team_name = msg.match[3]

@@ -26,6 +26,8 @@ Run `npm install hubot-worldcup`
 
 ```
 # Commands:
+hubot wc cards                  - Returns list of suspended players due to cards
+hubot wc cards <team acronym>   - Returns list of cards for a given team
 hubot wc gifs <timezone>        - Returns gifs related to matches from today in a given timezone
 hubot wc gifs recap <timezone>  - Returns gifs related to matches from yesterday in a given timezone
 hubot wc group <letter>         - Returns a group's standings
