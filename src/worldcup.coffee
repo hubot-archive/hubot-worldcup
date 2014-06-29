@@ -9,8 +9,8 @@
 #   hubot wc cards <team acronym>   - Returns list of cards for a given team
 #   hubot wc gifs <timezone>        - Returns gifs related to matches from today in a given timezone
 #   hubot wc gifs recap <timezone>  - Returns gifs related to matches from yesterday in a given timezone
-#   hubot wc live <on/off>          - Turns on or off the interval to get score alerts
 #   hubot wc group <letter>         - Returns a group's standings
+#   hubot wc live <on/off>          - Turns on or off the interval to get score alerts
 #   hubot wc more <team acronym>    - Returns a link to FIFA to see news, rosters, etc. for a given team
 #   hubot wc odds <timezone>        - Returns the odds for the matches yet to be played in given timezone
 #   hubot wc recap <timezone>       - Returns a score summary from the previous day's matches in given timezone
