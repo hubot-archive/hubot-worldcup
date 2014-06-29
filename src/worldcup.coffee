@@ -218,7 +218,7 @@ module.exports = (robot) ->
 
     if status == "on"
       liveScoreInterval = setInterval () ->
-        msg.http("http://worldcup2014bot.herokuapp.com/scores/live?seconds_ago=2")
+        msg.http("http://worldcup2014bot.herokuapp.com/scores/live")
           .get() (err, res, body) ->
             scores = JSON.parse(body).scores
 
