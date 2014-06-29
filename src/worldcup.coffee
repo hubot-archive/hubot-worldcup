@@ -210,9 +210,8 @@ module.exports = (robot) ->
             msg.send "There are no suspensions from cards :("
 
   robot.respond /(worldcup|wc)( live)( .*)/i, (msg) ->
-    console.log msg.message.user.room
-    permitted_rooms = process.env.WC_LIVE_PERMITTED_ROOMS
-    return if permitted_rooms and msg.message.user.room not in permitted_rooms
+    # permitted_rooms = process.env.WC_LIVE_PERMITTED_ROOMS
+    # return if permitted_rooms and msg.message.user.room not in permitted_rooms
 
     status = msg.match[3].trim()
 
@@ -224,6 +223,7 @@ module.exports = (robot) ->
 
             formatSimpleArray(msg, scores, "score_summary", goalMessage())
       , 3000
+      msg.send "Live score is on"
     else if status == "off" && liveScoreInterval
       clearInterval(liveScoreInterval)
       liveScoreInterval = null
