@@ -210,8 +210,11 @@ module.exports = (robot) ->
             msg.send "There are no suspensions from cards :("
 
   robot.respond /(worldcup|wc)( live)( .*)/i, (msg) ->
-    # permitted_rooms = process.env.WC_LIVE_PERMITTED_ROOMS
-    # return if permitted_rooms and msg.message.user.room not in permitted_rooms
+    current_room = '' + msg.message.user.room
+    permitted_rooms = process.env.WC_LIVE_PERMITTED_ROOMS
+    msg.send "ROOM: #{current_room}"
+    msg.send "PERMITTED: #{permitted_rooms}"
+    return if permitted_rooms and current_room not in permitted_rooms
 
     status = msg.match[3].trim()
 
