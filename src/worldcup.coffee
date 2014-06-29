@@ -1,11 +1,15 @@
 # Description:
 #   A way to get basic info and updates on the 2014 World Cup
 #
+# Configuration:
+#   WC_LIVE_PERMITTED_ROOMS - Comma delimited chat room IDs
+#
 # Commands:
 #   hubot wc cards                  - Returns list of suspended players due to cards
 #   hubot wc cards <team acronym>   - Returns list of cards for a given team
 #   hubot wc gifs <timezone>        - Returns gifs related to matches from today in a given timezone
 #   hubot wc gifs recap <timezone>  - Returns gifs related to matches from yesterday in a given timezone
+#   hubot wc live <on/off>          - Turns on or off the interval to get score alerts
 #   hubot wc group <letter>         - Returns a group's standings
 #   hubot wc more <team acronym>    - Returns a link to FIFA to see news, rosters, etc. for a given team
 #   hubot wc odds <timezone>        - Returns the odds for the matches yet to be played in given timezone
@@ -15,10 +19,14 @@
 #   hubot wc tomorrow <timezone>    - Returns a list of World Cup matches tomorrow for a given timezone
 #   hubot wc teams                  - Returns a list of teams in the World Cup
 #   hubot wc <red or yellow> <name> - Give someone a red/yellow card
+#
+# Author:
+#   travisvalentine, ccjr
 
 module.exports = (robot) ->
+  liveScoreInterval = null
 
-  formatSimpleArray = (msg, array, method, header_string, empty_message) ->
+  formatSimpleArray = (msg, array, method, header_string, empty_message=null) ->
     if array.length > 0
       objects = array.map (obj) ->
         obj[method]
@@ -29,7 +37,7 @@ module.exports = (robot) ->
       formatted_object_string = objects.join("\n")
 
       msg.send formatted_object_string
-    else
+    else if empty_message?
       msg.send empty_message
 
   robot.respond /(worldcup|wc)( today)( [\w \(\&\)\/]+)?/i, (msg) ->
@@ -200,6 +208,26 @@ module.exports = (robot) ->
             msg.send "There are no cards for #{team_name.trim()}. Make sure that's a valid name or acronym."
           else
             msg.send "There are no suspensions from cards :("
+
+  robot.respond /(worldcup|wc)( live)( .*)/i, (msg) ->
+    console.log msg.message.user.room
+    permitted_rooms = process.env.WC_LIVE_PERMITTED_ROOMS
+    return if permitted_rooms and msg.message.user.room not in permitted_rooms
+
+    status = msg.match[3].trim()
+
+    if status == "on"
+      liveScoreInterval = setInterval () ->
+        msg.http("http://worldcup2014bot.herokuapp.com/scores/live?seconds_ago=2")
+          .get() (err, res, body) ->
+            scores = JSON.parse(body).scores
+
+            formatSimpleArray(msg, scores, "score_summary", goalMessage())
+      , 3000
+    else if status == "off" && liveScoreInterval
+      clearInterval(liveScoreInterval)
+      liveScoreInterval = null
+      msg.send "Live score is off"
 
   robot.router.post '/worldcup/goal/:room', (req, res) ->
      room = req.params.room
