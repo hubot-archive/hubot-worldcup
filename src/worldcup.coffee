@@ -231,8 +231,9 @@ module.exports = (robot) ->
       msg.send "'Live' score is off"
 
   robot.router.post '/last_goal/:room', (req, res) ->
-    console.log req
-    console.log res
+    room = req.params.room
+    robot.messageRoom room, "#{req}, #{res}"
+    res.end()
 
   robot.router.post '/worldcup/goal/:room', (req, res) ->
      room = req.params.room
