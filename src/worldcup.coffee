@@ -230,7 +230,7 @@ module.exports = (robot) ->
       liveScoreInterval = null
       msg.send "'Live' score is off"
 
-  robot.router.post '/last_goal/:room', (req, res) ->
+  robot.router.get '/last_goal/:room', (req, res) ->
     room = req.params.room
     robot.messageRoom room, "#{req}, #{res}"
     res.end()
