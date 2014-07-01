@@ -48,6 +48,16 @@ hubot wc teams                  - Returns a list of teams in the World Cup
 hubot wc <red or yellow> <name> - Give someone a red/yellow card
 ```
 
+## Webhooks
+
+In addition to the interval polling from `hubot wc live on`, this includes a webhook for ReplayLastGoal that posts goal announcements and gifs to campfire. If you have your hubot at a public URL, test out your hook here:
+
+    http://replaylastgoal.com/hooks/add
+
+Just choose webhook from the dropdown and enter the URL of your hubot with the `/worldcup/goal/:room` endpoint. Example:
+
+    http://your_url_here.com/worldcup/goal/campfire_room_id
+
 ## Contributing
 
 * Fork this repo

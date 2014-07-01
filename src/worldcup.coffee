@@ -230,17 +230,13 @@ module.exports = (robot) ->
       liveScoreInterval = null
       msg.send "'Live' score is off"
 
-  robot.router.post '/last_goal/:room', (req, res) ->
-    room = req.params.room
-    robot.messageRoom room, "#{req}, #{res}"
-    res.end()
-
   robot.router.post '/worldcup/goal/:room', (req, res) ->
-     room = req.params.room
-     json = JSON.parse(req.body.message)
-     message = "#{goalMessage()}! #{json.player.name} #{json.minute}': #{json.home_team} (#{json.home_goals}) vs #{json.away_team} (#{json.away_goals})"
-     robot.messageRoom room, message
-     res.end()
+    room = req.params.room
+    json = JSON.parse(req.body.message)
+    robot.messageRoom room, "#{goalMessage()}"
+    robot.messageRoom room, "#{json.text}"
+    robot.messageRoom room, "#{json.gif}"
+    res.end()
 
   goalMessage = ->
     array = [5..15]
